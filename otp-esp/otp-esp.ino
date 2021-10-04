@@ -139,6 +139,32 @@ HTTPHeader::~HTTPHeader()
 {
 }
 
+String readData(int offset, int length)
+{
+  int max = offset + length;
+  String result = "";
+  for (int l = offset; l < max; ++l) 
+  { 
+    result += char(EEPROM.read(l)); 
+  }
+  return result;
+}
+
+void writeData(int offset, int length, String value)
+{
+  int max2 = offset + length;
+  int max1 = value.length();
+  String result = "";
+  for (int l = 0; l < max1; ++l) 
+  { 
+    EEPROM.write(offset + l, password[l]); 
+  }
+  for (int l = max1; l < max2; ++l) 
+  { 
+    EEPROM.write(offset + l, 0); 
+  }
+  EEPROM.commit();
+}
 
 void setup() {
   Serial.begin(115200); 
