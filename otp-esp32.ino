@@ -43,6 +43,7 @@ const long timeoutTime = 2000;
 
 String mqttTopic = "";
 String mqttServer = "192.168.1.15";
+int mqttPort = 1883;
 String mqttClientId = "1";
 String mqttUsername = "user";
 String mqttPassword = "pass";
@@ -168,9 +169,9 @@ void writeData(int offset, int length, String value)
 
 void setup() {
   Serial.begin(115200); 
-  mqttClient.setServer(mqttServer, 1883);
+  mqttClient.setServer(mqttServer, mqttPort);
   mqttClient.setCallback(mqttCallback);
-  
+  Wifi.mode(WIFI_AP_STA);
   WiFi.begin(ssid, password);
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
